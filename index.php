@@ -194,3 +194,614 @@ $rectangle_1->height = 30;
 echo $rectangle_1->getSquare() . "<br>";
 echo $rectangle_1->getPerimeter() . "<br>";
  ?>
+
+
+<br>
+<br>
+ <!-- Не подсматривая в мой код создайте такой же класс User с такими же методами. -->
+ <!-- Создайте объект этого класса User проверьте работу методов setAge и addAge. -->
+ <!-- Добавьте также метод subAge, который будет выполнять уменьшение текущего возраста на переданное количество лет. -->
+ <!-- Сделать isCorrectAge() приватным методом -->
+ <!-- Попробуйте вызвать метод isAgeCorrect снаружи класса. Убедитесь, что это будет вызывать ошибку. -->
+ <?php
+class User4 
+{
+    public $age;
+
+    public function addAge($age) {
+       if($this->isCorrectAge($age)) {
+        return $this->age = $age;
+       }
+    }
+
+    public function setAge($years) {
+        $newAge = $this->age + $years;
+        if($this->isCorrectAge($newAge)) {
+            return $this->age = $newAge;
+        }
+    }
+
+    public function subAge($years) {
+        $newAge = $this->age - $years;
+        if($this->isCorrectAge($newAge)) {
+            return $this->age = $newAge;
+        }
+    }
+
+    private function isCorrectAge($age) {
+        if($age >=18 and $age <= 60) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+$user = new User4;
+$user->addAge(40);
+echo $user->age . "<br>";
+
+$user->setAge(40);
+echo $user->age . "<br>";
+
+$user->subAge(22);
+echo $user->age;
+
+// $user->isCorrectAge(55);
+ ?>
+<br>
+<br>
+ <!-- Сделайте класс Student со свойствами $name и $course (курс студента, от 1-го до 5-го). -->
+ <!-- В классе Student сделайте public метод transferToNextCourse, который будет переводить студента на следующий курс. -->
+ <!-- Выполните в методе transferToNextCourse проверку на то, что следующий курс не больше 5. -->
+ <!-- Вынесите проверку курса в отдельный private метод isCourseCorrect. -->
+ <?php
+class Student 
+{
+    public $name;
+    public $course;
+
+    public function transferToNextCourse() {
+        $newCourse = $this->course + 1;
+        if($this->isCourseCorrect($newCourse)) {
+            return $this->course = $newCourse;
+        }
+    }
+    private function isCourseCorrect($course) {
+        if($course <= 5) {
+            return true;
+        }
+    }
+}
+
+$student1 = new Student;
+$student1->name = "Ilia";
+$student1->transferToNextCourse();
+echo $student1->name ." учится на ". $student1->course . " курсе" . "<br>";
+$student1->transferToNextCourse();
+$student1->transferToNextCourse();
+$student1->transferToNextCourse();
+$student1->transferToNextCourse();
+echo $student1->name ." учится на ". $student1->course . " курсе" . "<br>";
+$student1->transferToNextCourse();
+echo $student1->name ." учится на ". $student1->course . " курсе" . "<br>";
+ ?>
+
+
+<br>
+<br>
+ <!-- Сделайте класс Employee, в котором будут следующие публичные свойства - name, age, salary. Сделайте так, чтобы эти свойства заполнялись в конструкторе при создании объекта. -->
+ <!-- Создайте объект класса Employee с именем 'eric', возрастом 25, зарплатой 1000. -->
+ <!-- Создайте объект класса Employee с именем 'kyle', возрастом 30, зарплатой 2000. -->
+ <!-- Выведите на экран сумму зарплат созданных вами юзеров. -->
+
+ <?php
+class Employee4
+{
+    public $name;
+    public $age;
+    public $salary;
+
+    public function __construct($name, $age, $salary) {
+        $this->name = $name;
+        $this->age = $age;
+        $this->salary = $salary;
+    }
+}
+
+$user1 = new Employee4('eric', 25, 1000);
+$user2 = new Employee4('kyle', 30, 2000);
+echo 'Сумма зарплат обоих сотрудников - ' . ($user1->salary + $user2->salary) . "<br>";
+ ?>
+
+<br>
+<br>
+ <!-- Сделайте класс Employee, в котором будут следующие приватные свойства: name, age и salary. -->
+ <!-- Сделайте геттеры и сеттеры для всех свойств класса Employee. -->
+ <!-- Дополните класс Employee приватным методом isAgeCorrect, который будет проверять возраст на корректность (от 1 до 100 лет). Этот метод должен использоваться в сеттере setAge перед установкой нового возраста (если возраст не корректный - он не должен меняться). -->
+<!-- Пусть зарплата наших работников хранится в долларах. Сделайте так, чтобы геттер getSalary добавлял в конец числа с зарплатой значок доллара. Говоря другими словами в свойстве salary зарплата будет хранится просто числом, но геттер будет возвращать ее с долларом на конце. -->
+
+ <?php
+class Employee5
+{
+    private $name;
+    private $age;
+    private $salary;
+
+    public function getName() {
+        return $this->name;
+    }
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function getAge() {
+        return $this->age;
+    }
+    public function setAge($age) {
+        if($this->isAgeCorrect($age)) {
+        $this->age = $age;
+        }
+    }
+
+    public function getsalary() {
+        return $this->salary . "$";
+    }
+    public function setSalary($salary) {
+        $this->salary = $salary;
+    }
+
+    private function isAgeCorrect($age) {
+        if($age >= 1 and $age <=100){
+            return true;
+        }
+    }
+}
+
+$user = new Employee5;
+$user->setAge(33);
+echo $user->getAge() . "<br>";
+$user->setName("Ilya");
+echo $user->getName() . "<br>";;
+$user->setAge(70);
+echo $user->getAge() . "<br>";
+$user->setSalary(1500);
+echo $user->getSalary()
+ ?>
+
+<br>
+<br>
+<!-- Сделайте класс Employee, в котором будут следующие свойства: name, surname и salary. -->
+<!-- Сделайте так, чтобы свойства name и surname были доступны только для чтения, а свойство salary - и для чтения, и для записи. -->
+<?php
+class Employee6 
+{
+    private $name;
+    private $age;
+    private $salary;
+
+    public function __construct($name, $age) {
+        $this->name = $name;
+        $this->age = $age;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+    public function getAge() {
+        return $this->age;
+    }
+    public function getSalary() {
+        return $this->salary;
+    }
+    public function setSalary($salary) {
+        $this->salary = $salary;
+    }
+}
+$user = new Employee6("Bond", 35);
+$user->setSalary(2200);
+echo $user->getName() . "<br>";
+echo $user->getAge() . "<br>";
+echo $user->getSalary() . "<br>";
+?>
+
+<br>
+<br>
+<!-- Сделайте несколько классов в разных файлах. Подключите ваши классы к файлу index.php. -->
+<?php
+require_once 'Car.php';
+$bmw = new Car('red', 250);
+$bmw->setTank(49);
+echo $bmw->getColor() . "<br>";
+echo $bmw->getSpeed() . "<br>";
+echo $bmw->getTank() . "<br>";
+?>
+
+<br>
+<br>
+<?php
+require_once 'Worker.php';
+$ben = new Worker('Ben', 2, 'programmer', 1000);
+echo 'Имя: ' . $ben->getName() . "<br>";
+echo 'Стаж: ' . $ben->getExperience() . "<br>";
+echo 'Должность: ' . $ben->getPosition() . "<br>";
+echo 'Зарплата: ' . $ben->getSalary() . "<br>";
+
+$ben->setExperience();
+echo 'Имя: ' . $ben->getName() . "<br>";
+echo 'Стаж: ' . $ben->getExperience() . "<br>";
+echo 'Должность: ' . $ben->getPosition() . "<br>";
+echo 'Зарплата: ' . $ben->getSalary() . "<br>";
+$ben->setExperience();
+echo 'Имя: ' . $ben->getName() . "<br>";
+echo 'Стаж: ' . $ben->getExperience() . "<br>";
+echo 'Должность: ' . $ben->getPosition() . "<br>";
+echo 'Зарплата: ' . $ben->getSalary() . "<br>";
+?>
+
+
+<br>
+<br>
+<!-- Сделайте класс City, в котором будут следующие свойства: name, population (количество населения). -->
+<?php
+class City
+{
+    private $name;
+    private $population;
+
+    public function __construct($name, $population) {
+        $this->name = $name;
+        $this->population = $population;
+    }
+    public function getName() {
+        return $this->name; 
+    }
+    public function getPopulation() {
+        return $this->population; 
+    }
+    public function setPopulation($population) {
+        if($this->isCorrectPopulation($population) )
+         $this->population = $population;
+    }
+
+    private function isCorrectPopulation($population) {
+        if($population >= $this->population - ($this->population * 0.05) and $population <= $this->population + ($this->population * 0.05)) {
+            return true;
+        }
+     
+    }
+}
+
+$stavropol = new City('Stavropol', 600000);
+echo $stavropol->getName() . "<br>";
+echo $stavropol->getPopulation() . "<br>";
+$stavropol->setPopulation(630000);
+echo $stavropol->getName() . "<br>";
+echo $stavropol->getPopulation() . "<br>";
+?>
+<!-- Создайте 5 объектов класса City, заполните их данными и запишите в массив. -->
+<?php
+$arr = [
+    new City('Stavropol', 600000),
+    new City('Moscow', 10000000),
+    new City('Tokio', 20000000),
+    new City('Berlin', 5000000),
+    new City('Marcel', 2000000),
+]
+?>
+<br>
+<br>
+<!-- Переберите созданный вами массив с городами циклом и выведите города и их население на экран. -->
+<?php
+foreach($arr as $city) {
+    echo $city->getName() . ' - ' . $city->getPopulation() . "<br>";
+}
+?>
+
+<br>
+<br>
+<!-- Не подсматривая в мой код реализуйте такой же класс Student. -->
+<?php
+class Student2
+{
+    private $name;
+    private $course;
+
+    public function __construct($name) {
+        $this->name = $name;
+        $this->course = 1;
+    }
+    public function getName() {
+       return $this->name;
+    }
+    public function getCourse() {
+        return $this->course;
+    }
+
+    public function transferToNextCourse() {
+        if($this->course < 5) {
+            $this->course++;
+        }
+    }
+}
+
+$student = new Student2('Ilya');
+echo $student->getName() . '<br>';
+echo $student->getCourse() . '<br>';
+echo $student->transferToNextCourse();
+echo $student->transferToNextCourse();
+echo $student->transferToNextCourse();
+echo $student->transferToNextCourse();
+echo $student->transferToNextCourse();
+echo $student->transferToNextCourse();
+echo $student->getCourse() . '<br>';
+?>
+
+
+<br>
+<br>
+<!-- Реализуйте класс Arr, похожий на тот, который я реализовал выше. В отличие от моего класса метод add вашего класса параметром должен принимать массив чисел. Все числа из этого массива должны добавляться в конец массива $this->numbers. -->
+<!-- Реализуйте также метод getAvg, который будет находить среднее арифметическое чисел. -->
+
+<?php
+class Arr
+{
+    private $numbers = [];
+    // public function __construct($) {
+    //     $this->name = $name;
+    //     $this->course = 1;
+    // }
+    public function add($num) {
+        $this->numbers = array_merge($this->numbers, $num);
+    }
+    public function getNumbers() {
+        return $this->numbers;
+    }
+
+    public function getAvg() {
+        return array_sum($this->numbers) / count($this->numbers);
+    }
+}
+
+$arr = new Arr;
+$arr->add([1, 2, 3]);
+var_dump($arr->getNumbers());
+$arr->add([4, 5, 6]);
+$arr->add([7, 8, 9]);
+echo "<pre>";
+print_r($arr->getNumbers());
+echo "</pre>";
+echo $arr->getAvg();
+?>
+
+<br>
+<br>
+<!-- Сделайте класс City, в котором будут следующие свойства - name, foundation (дата основания), population (население). Создайте объект этого класса. -->
+<!-- Пусть дана переменная $props, в которой хранится массив названий свойств класса City. Переберите этот массив циклом foreach и выведите на экран значения соответствующих свойств. -->
+<?php
+class City2 
+{
+    public $name;
+    public $foundation;
+    public $population;
+
+    public function __construct($name, $foundation, $population) {
+        $this->name = $name;
+        $this->foundation = $foundation;
+        $this->population = $population;
+ 
+    }
+
+    // public function getName() {
+    //     return $this->name;
+    // }
+    // public function getFoundation() {
+    //     return $this->foundation;
+    // }
+    // public function getPopulation() {
+    //     return $this->population;
+    // }
+}
+
+$city = new City2('Moscow', 1345, 15000000);
+$props = ['name', 'foundation', 'population'];
+foreach($props as $elem) {
+    echo $city->$elem . "<br>";
+}
+?>
+
+<br>
+<!-- Скопируйте мой код класса User и массив $props. В моем примере на экран выводится фамилия юзера. Выведите еще и имя, и отчество. -->
+<?php
+	class User5
+	{
+		public $surname; // фамилия
+		public $name; // имя
+		public $patronymic; // отчество
+		
+		public function __construct($surname, $name, $patronymic)
+		{
+			$this->surname = $surname;
+			$this->name = $name;
+			$this->patronymic = $patronymic;
+		}
+	}
+
+    $user = new User5('Петров', 'Петр', 'Петрович');
+    $arr = ['surname', 'name', 'patronymic'];
+    echo $user->{$arr[0]}. '<br>';
+    echo $user->{$arr[1]}. '<br>';
+    echo $user->{$arr[2]}. '<br>';
+?>
+
+
+<br>
+<br>
+<!-- Пусть массив $methods будет ассоциативным с ключами method1 и method2:
+	$methods = ['method1' => 'getName', 'method2' => 'getAge'];
+Выведите имя и возраст пользователя с помощью этого массива. -->
+
+<?php
+	class User6
+	{
+		private $name;
+		private $age;
+		
+		public function __construct($name, $age)
+		{
+			$this->name = $name;
+			$this->age = $age;
+		}
+		
+		public function getName()
+		{
+			return $this->name;
+		}
+		
+		public function getAge()
+		{
+			return $this->age;
+		}
+	}
+
+    $method = ['method1' => 'getName', 'method2' => 'getAge'];
+
+    $user = new User6('Ilya', 33);
+    echo $user->{$method['method1']}() . "<br>";
+    echo $user->{$method['method2']}();
+?>
+
+
+<br>
+<br>
+<!-- Не подсматривая в мой код реализуйте такой же класс Arr и вызовите его метод getSum сразу после создания объекта. -->
+
+<?php
+class Arr2 
+{
+    private $numbers = [];
+
+    public function __construct($num) {
+        $this->numbers = $num;
+    }
+    public function getNumbers() {
+        return $this->numbers;
+    }
+    public function setNumbers($num) {
+        $this->numbers[] = $num;
+    }
+    public function getSum() {
+        return array_sum($this->numbers);
+    }
+ }
+// $arr = new Arr2([1, 2, 3]);
+// var_dump($arr->getNumbers());
+// echo '<br>';
+// echo $arr->getSum() . '<br>';
+// $arr->setNumbers(4);
+// var_dump($arr->getNumbers());
+// echo '<br>';
+// echo $arr->getSum() . '<br>';
+echo (new Arr2([10, 20, 30]))->getSum() + (new Arr2([40, 50, 70]))->getSum();
+?>
+
+
+<br>
+<br>
+<!-- Не подсматривая в мой код самостоятельно реализуйте такой же класс Arr, методы которого будут вызываться в виде цепочки. -->
+<?php
+class Arr3 
+{
+    private $number = [];
+
+    public function add($num) {
+        $this->number[] = $num;
+        return $this;
+    }
+    public function addArr($num) {
+       $this->number = array_merge($this->number, $num);
+       return $this;
+    }
+    public function arrSum() {
+      return  array_sum($this->number);
+    }
+}
+echo (new Arr3)->add(2)->add(3)->addArr([4, 5, 6])->addArr([8, 9])->arrSum();
+?>
+
+<br>
+<br>
+<!-- Напишите реализацию методов класса ArrayAvgHelper, заготовки методов которого расположены ниже:-->
+
+<?php
+	class ArraySumHelper
+	{
+		/*
+			Находит сумму первых
+			степеней элементов массива:
+		*/
+		public function getAvg1($arr)
+		{
+           return $this->getSum($arr, 1);
+		}
+		
+		/*
+			Находит сумму вторых степеней
+			элементов массива и извлекает
+			из нее квадратный корень:
+		*/
+		public function getAvg2($arr)
+		{
+            return $this->calcSqrt($this->getSum($arr, 2), 2);
+		}
+		
+		/*
+			Находит сумму третьих степеней
+			элементов массива и извлекает
+			из нее кубический корень:
+		*/
+		public function getAvg3($arr)
+		{
+            return $this->calcSqrt($this->getSum($arr, 3), 3);
+		}
+		
+		/*
+			Находит сумму четвертых степеней
+			элементов массива и извлекает
+			из нее корень четвертой степени:
+		*/
+		public function getAvg4($arr)
+		{
+            return $this->calcSqrt($this->getSum($arr, 4), 4);
+		}
+		
+		/*
+			Вспомогательный метод, который параметром
+			принимает массив и степень и возвращает
+			сумму степеней элементов массива:
+		*/
+		private function getSum($arr, $power)
+		{
+            $sum = 0;
+            foreach($arr as $elem) {
+                $sum += pow($elem, $power);
+            }
+            return $sum;
+		}
+		
+		/*
+			Вспомогательный метод, который параметром
+			принимает целое число и степень и возвращает
+			корень заданной степени из числа:
+		*/
+		private function calcSqrt($num, $power)
+		{
+            return pow($num, 1/$power);
+		}
+	}
+
+    $arr = new ArraySumHelper;
+    echo $arr->getAvg1([1, 2, 3]). '<br>';
+    echo $arr->getAvg2([1, 2, 3]). '<br>';
+    echo $arr->getAvg3([1, 2, 3]). '<br>';
+    echo $arr->getAvg4([1, 2, 3]). '<br>';
+?> 
