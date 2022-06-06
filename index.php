@@ -805,3 +805,147 @@ echo (new Arr3)->add(2)->add(3)->addArr([4, 5, 6])->addArr([8, 9])->arrSum();
     echo $arr->getAvg3([1, 2, 3]). '<br>';
     echo $arr->getAvg4([1, 2, 3]). '<br>';
 ?> 
+
+<br>
+<br>
+<!-- Реализуйте наследование User, Employee. -->
+<?php
+class User7
+{
+    private $name;
+    private $age;
+  
+    public function getName() {
+        return $this -> name;
+    }
+    public function getAge() {
+        return $this -> age;
+    }
+    public function setName($name) {
+        $this -> name = $name;
+    }
+    public function setAge($age) {
+        $this -> age = $age;
+    }
+}
+
+class Employee7 extends User7
+{
+    private $salary;
+
+    public function getSalary() {
+       return $this->salary;
+    }
+    public function setSalary($salary) {
+        $this -> salary = $salary;
+    }
+}
+
+$user = new User7;
+$user->setName('Ilya');
+echo $user->getName() . "<br>";
+
+$employee = new Employee7;
+$employee->setName('Jhon');
+echo $employee->getName() . "<br>";
+
+$employee->setAge(33);
+echo $employee->getAge() . "<br>";
+
+$employee->setSalary(1000);
+echo $employee->getSalary() . "<br>";
+?>
+
+<!-- Не подсматривая в мой код реализуйте такой же класс Student, наследующий от класса User. -->
+
+<?php
+class Student5 extends User7
+{
+    private $course;
+
+    public function getCourse() {
+        return $this->course;
+     }
+     public function setCourse($course) {
+         $this -> course = $course;
+     }
+}
+$student = new Student5;
+$student->setName('Andrey');
+$student->setAge(30);
+$student->setCourse(5);
+echo $student->getName() . "<br>";
+echo $student->getAge() . "<br>";
+echo $student->getCourse() . "<br>";
+?>
+
+<br>
+<br>
+<!-- Сделайте класс Programmer, который будет наследовать от класса Employee. Пусть новый класс имеет свойство langs, в котором будет хранится массив языков, которыми владеет программист. Сделайте также геттер и сеттер для этого свойства. -->
+<?php
+class Programmer2 extends Employee7
+{
+    private $langs = [];
+
+    public function getLangs() {
+       return $this->langs;
+    }
+    public function push($langs) {
+     $this->langs = array_merge($this->langs, $langs);
+    }
+}
+$programmer = new Programmer2;
+$programmer->setName('Ilya');
+$programmer->setAge(33);
+$programmer->push(['js', 'php', 'html']);
+$programmer->setSalary(1000);
+
+echo $programmer->getName() . "<br>";
+echo $programmer->getAge() . "<br>";
+var_dump($programmer->getLangs());
+echo "<br>";
+echo $programmer->getSalary() . "<br>";
+?>
+
+<br>
+<br>
+ <!-- Сделайте класс Driver (водитель), который будет наследовать от класса Employee. Пусть новый класс добавляет следующие свойства: водительский стаж, категория вождения (A, B, C, D), а также геттеры и сеттеры к ним. -->
+ <?php
+class Driver extends Employee7
+{
+    private $experience;
+    private $category;
+
+    public function getExperience() {
+       return $this->experience;
+    }
+    public function getCategory() {
+        return $this->category;
+     }
+     public function setExperience($experience) {
+        $this->experience = $experience;
+     }
+     public function setCategory($category) {
+         if($this->isCorrectCategory($category)) {
+            $this->category = $category;
+         }
+      }
+      private function isCorrectCategory($category) {
+          if($category === "A" or $category=== "B" or $category === "C" or $category === "D") {
+              return true;
+          }
+      }
+}
+$driver = new Driver;
+$driver->setName('Ilya');
+$driver->setAge(33);
+$driver->setSalary(2200) . "<br>";
+$driver->setExperience(10);
+$driver->setCategory('B');
+
+echo $driver->getName() . "<br>";
+echo $driver->getAge() . "<br>";
+echo $driver->getSalary() . "<br>";
+echo $driver->getExperience() . "<br>";
+echo $driver->getCategory() . "<br>";
+ ?>
