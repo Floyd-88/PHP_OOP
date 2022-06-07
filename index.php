@@ -949,3 +949,257 @@ echo $driver->getSalary() . "<br>";
 echo $driver->getExperience() . "<br>";
 echo $driver->getCategory() . "<br>";
  ?>
+
+<br>
+<br>
+ <!-- Скопируйте мой код класса User. Самостоятельно не подсматривая в мой код реализуйте описанный класс Student с методами getCourse, setCourse и addOneYear. -->
+ <?php
+	class User11
+	{
+		private $name;
+		protected $age;
+		
+		public function getName()
+		{
+			return $this->name;
+		}
+		
+		public function setName($name)
+		{
+			$this->name = $name;
+		}
+		
+		public function getAge()
+		{
+			return $this->age;
+		}
+		
+		public function setAge($age)
+		{
+			$this->age = $age;
+		}
+	}
+
+    class Student3 extends User11
+    {
+        private $course;
+        public function __construct($course) {
+            $this->course = $course;
+        }
+        public function getCourse() {
+            return  $this->course;
+        }
+        public function setCourse($course) {
+            $this->course = $course;
+        }
+        public function addOneCourse() {
+            $this->age++;
+            if($this->course < 5) {
+                $this->course++;
+            }
+            
+        }
+ 
+    }
+    $student = new Student3(2);
+    $student->setName('Ilya');
+    $student->setAge(33);
+
+echo $student->getName() . "<br>";
+echo $student->getAge() . "<br>";
+echo $student->getCourse() . "<br>";
+
+    $student->addOneCourse();
+echo $student->getCourse() . "<br>";
+echo $student->getAge() . "<br>";
+
+$student->addOneCourse();
+echo $student->getCourse() . "<br>";
+echo $student->getAge() . "<br>";
+?>
+
+
+<br>
+<br>
+<!-- Модифицируйте код класса User так, чтобы в методе setName выполнялась проверка того, что длина имени более 3-х символов. -->
+<!-- Добавьте в класс Student метод setName, в котором будет выполняться проверка того, что длина имени более 3-х символов и менее 10 символов. Пусть этот метод использует метод setName своего родителя, чтобы выполнить часть проверки. -->
+
+<?php
+class User12 
+{
+    private $name;
+    private $age;
+
+    public function getName() {
+        return $this->name;
+    }
+    public function getAge() {
+        return $this->age;
+    }
+
+    public function setName($name) {
+        if(mb_strlen($name) > 3){
+            $this->name = $name;
+        }
+        
+    }
+    public function setAge($age) {
+        if($age > 18) {
+            $this->age = $age;
+        }
+    }
+}
+
+class Students12 extends User12
+{
+    private $course;
+
+    public function __construct($course) {
+        $this->course = $course;
+    }
+    public function getCourse() {
+        return $this->course;
+    }
+    public function setCourse($course) {
+        $this->course = $course;
+    }
+    public function setAge($age) {
+        if($age <= 25) {
+            parent::setAge($age);
+        }
+    }
+    public function setName($name) {
+        if($age <= 10) {
+            parent::setName($name);
+        }
+    }
+}
+$student = new Students12(2);
+$student->setName('Rick');
+$student->setAge(20);
+
+echo $student->getName() . "<br>";
+echo $student->getAge() . "<br>";
+echo $student->getCourse() . "<br>";
+
+$student->setName('Ric');
+$student->setAge(26);
+$student->setCourse(3);
+echo $student->getName() . "<br>";
+echo $student->getAge() . "<br>";
+echo $student->getCourse() . "<br>";
+?>
+
+<br>
+<br>
+<!--Создайте класс Student, наследующий от User, со своим конструктором. -->
+
+<?php
+class User13 
+{
+    protected $name;
+    protected $age;
+
+    public function __construct($name, $age) {
+        $this->name = $name;
+        $this->age = $age;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+    public function getAge() {
+        return $this->age;
+    }
+
+}
+
+class Students13 extends User13
+{
+    private $course;
+
+    public function __construct($name, $age, $course) {
+        $this->name = $name;
+        $this->age = $age;
+        $this->course = $course;
+    }
+    public function getCourse() {
+        return $this->course;
+    }
+}
+$student = new Students13('Alexno', 23, 5);
+
+echo $student->getName() . "<br>";
+echo $student->getAge() . "<br>";
+echo $student->getCourse() . "<br>";
+?>
+
+
+<br>
+<br>
+<!-- Сделайте класс User, в котором будут следующие свойства только для чтения: name и surname. Начальные значения этих свойств должны устанавливаться в конструкторе. Сделайте также геттеры этих свойств. -->
+
+<!-- Модифицируйте предыдущую задачу так, чтобы третьим параметром в конструктор передавалась дата рождения работника в формате год-месяц-день. Запишите ее в свойство birthday. Сделайте геттер для этого свойства. -->
+
+<!-- Модифицируйте предыдущую задачу так, чтобы был приватный метод calculateAge, который параметром будет принимать дату рождения, а возвращать возраст с учетом того, был ли уже день рождения в этом году, или нет. -->
+
+<!-- Модифицируйте предыдущую задачу так, чтобы метод calculateAge вызывался в конструкторе объекта, рассчитывал возраст пользователя и записывал его в приватное свойство age. Сделайте геттер для этого свойства. -->
+<?php
+class User15 
+{
+    private $name;
+    private $surname;
+    private $birthday;
+    private $age;
+
+    public function __construct($name, $surname, $birthday) {
+        $this->name = $name;
+        $this->surname = $surname;
+        $this->birthday = $birthday;
+        $this->age = $this->calculateAge($birthday);
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+    public function getSurname() {
+        return $this->surname;
+    }
+    public function getBirthday() {
+        return $this->birthday;
+    }
+    public function getAge() {
+        return $this->age;
+    }
+
+    private function calculateAge($birthday) {
+        $birthday_timestamp = strtotime($birthday);
+        $age = date('Y') - date('Y', $birthday_timestamp);
+        if (date('md', $birthday_timestamp) > date('md')) {
+        $age--;
+        }
+    return $age;
+    }
+
+}
+
+// Сделайте класс Employee, который будет наследовать от класса User. Пусть новый класс имеет свойство salary, в котором будет хранится зарплата работника. Зарплата должна передаваться четвертым параметром в конструктор объекта. Сделайте также геттер для этого свойства.
+class Employee15 extends User15
+{
+    private $salary;
+
+    public function __construct($name, $surname, $birthday, $salary) {
+        parent::__construct($name, $surname, $birthday);
+        $this->salary = $salary;
+    }
+    public function getSalary() {
+        return $this->salary;
+    }
+}
+$employee = new Employee15('Lev', 'Lenin', '1988-11-27', 1100);
+
+echo $employee->getName() . "<br>";
+echo $employee->getSurname() . "<br>";
+echo $employee->getAge() . "<br>";
+echo $employee->getSalary() . "<br>";
+?>
