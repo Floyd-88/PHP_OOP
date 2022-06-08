@@ -1203,3 +1203,578 @@ echo $employee->getSurname() . "<br>";
 echo $employee->getAge() . "<br>";
 echo $employee->getSalary() . "<br>";
 ?>
+
+<br>
+<br>
+<!-- Сделайте класс Product, в котором будут следующие свойства: name, price. -->
+<?php
+class Product 
+{
+    private $name;
+    private $price;
+
+    public function __construct($name, $price) {
+        $this->name = $name;
+        $this->price = $price;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+    public function getPrice() {
+        return $this->price;
+    }
+
+}
+// Создайте объект класса Product, запишите его в переменную $product1.
+$product1 = new Product('car', '5000');
+echo $product1->getName() . "<br>";
+echo $product1->getPrice() . "<br>";
+
+// Присвойте значение переменной $product1 в переменную $product2. Проверьте то, что обе переменные ссылаются на один и тот же объект.
+$product2 = $product1;
+echo $product2->getName();
+?>
+
+<br>
+<br>
+<!-- Самостоятельно повторите описанные мною классы Arr и SumHelper. -->
+
+<!-- Добавьте в класс Arr метод getAvgMeanSum, который будет находить сумму среднего арифметического и среднего квадратичного из массива $this->nums. -->
+<?php
+class Arr5 
+{
+    private $array = [];
+    private $sumHelper;
+
+    public function __construct() {
+        $this->sumHelper = new SumHelper;
+        $this->avgHelper = new AvgHelper;
+    }
+
+    public function getArray() {
+        return $this->array; 
+    }
+    public function getSum23() {
+      return  $this->sumHelper->setSum1($this->array) + $this->sumHelper->setSum2($this->array);
+    }
+
+    public function getAvgMeanSum() {
+        return $this->avgHelper->getAvg($this->array) + $this->avgHelper->getMeanSquare($this->array);
+    }
+
+    public function add($array){
+        $this->array[] = $array;
+    }
+}
+
+class SumHelper
+{  
+    public function setSum1($num) {
+        return $this->setSum($num, 2);
+    }
+    public function setSum2($num) {
+        return $this->setSum($num, 3);
+    }
+    private function setSum($num, $row) {
+        $sum = 0;
+        foreach($num as $elem) {
+           $sum += pow($elem, $row);
+        }
+        return $sum;
+    }
+}
+
+$arr = new Arr5;
+$arr->add(1);
+$arr->add(2);
+$arr->add(3);
+echo $arr->getSum23() . "<br>";
+echo $arr->getAvgMeanSum();
+?>
+
+
+<br>
+<br>
+<!-- Создайте класс AvgHelper с методом getAvg, который параметром будет принимать массив и возвращать среднее арифметическое этого массива (сумма элементов делить на количество). -->
+
+<!-- Добавьте в класс AvgHelper еще и метод getMeanSquare, который параметром будет принимать массив и возвращать среднее квадратичное этого массива (квадратный корень, извлеченный из суммы квадратов элементов, деленной на количество). -->
+<?php
+class AvgHelper 
+{
+    public function getAvg($arr) {
+        return array_sum($arr) / count($arr);
+    }
+    public function getMeanSquare($arr) {
+        return sqrt( array_sum($this->getSumMean($arr)) / count($arr));
+    }
+
+    private function getSumMean($arr) {
+        $arr2 = [];    
+        foreach($arr as $elem) {
+            $arr2[] = pow($elem, 2);
+            }
+        return $arr2;
+    }
+}
+$arr = new AvgHelper;
+echo $arr->getAvg([1, 2, 3]) . "<br>";
+echo $arr->getMeanSquare([1, 2, 3]) . "<br>";
+?>
+
+<br>
+<br>
+<!-- Сделайте класс Product, в котором будут приватные свойства name, price и quantity. Пусть все эти свойства будут доступны только для чтения. -->
+
+<!-- Добавьте в класс Product метод getCost, который будет находить полную стоимость продукта (сумма умножить на количество). -->
+<?php
+class Product2
+{
+    private $name;
+    private $price;
+    private $quantity;
+
+    public function __construct($name, $price, $quantity) {
+        $this->name = $name;
+        $this->price = $price;
+        $this->quantity = $quantity;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+    public function getPrice() {
+        return $this->price;
+    }
+    public function getQuantity() {
+        return $this->quantity;
+    }
+
+    public function getCost($price, $quantity) {
+        return $this->price * $this->quantity;
+    }
+}
+?>
+<!-- Сделайте класс Cart. Данный класс будет хранить список продуктов (объектов класса Product) в виде массива. Пусть продукты хранятся в свойстве products. -->
+<!-- Реализуйте в классе Cart метод add для добавления продуктов. -->
+
+<!-- Реализуйте в классе Cart метод remove для удаления продуктов. Метод должен принимать параметром название удаляемого продукта. -->
+
+<!-- Реализуйте в классе Cart метод getTotalCost, который будет находить суммарную стоимость продуктов. -->
+
+<!-- Реализуйте в классе Cart метод getTotalQuantity, который будет находить суммарное количество продуктов (то есть сумму свойств quantity всех продуктов). -->
+
+<!-- Реализуйте в классе Cart метод getAvgPrice, который будет находить среднюю стоимость продуктов (суммарная стоимость делить на количество всех продуктов). -->
+<?php
+class Cart 
+{
+    private $products = [];
+
+    public function getProducts() {
+        return $this->products;
+    }
+
+    public function add($prod) {
+        $this->products[] = $prod;
+    }
+
+    public function remove($i) {
+        $arr = [];
+        foreach($this->products as $elem) {
+          if($elem->getName() !== $i) {
+            $arr[] = $elem;
+          }
+          $this->products = $arr;
+           }
+
+    // $i = array_search($elem, $this->products);
+    // array_splice($this->products, $i, 1);
+    }
+
+    public function getTotalCost() {
+        $sum = 0;
+        foreach($this->products as $elem) {
+           $sum += $elem->getPrice() * $elem->getQuantity();
+        }
+        return $sum;
+    }
+
+    public function getTotalQuantity() {
+        $sum = 0;
+        foreach($this->products as $elem) {
+           $sum += $elem->getQuantity();
+        }
+        return $sum;
+    }
+
+    public function getAvgPrice() {
+      return  $this->getTotalCost() / $this->getTotalQuantity();
+    }
+}
+
+$cart = new Cart();
+$cart->add(new Product2('milk', 5, 200));
+$cart->add(new Product2('bread', 3, 500));
+$cart->add(new Product2('apple', 7, 300));
+echo '<pre>';
+print_r($cart->getProducts());
+echo '</pre>';
+
+$cart->remove('apple');
+$cart->remove('bread');
+
+echo '<pre>';
+print_r($cart->getProducts());
+echo '</pre>';
+
+echo $cart->getTotalCost() . "<br>";
+
+echo $cart->getTotalQuantity() . "<br>";
+
+echo $cart->getAvgPrice() . "<br>";
+$cart->add(new Product2('orange', 3, 400));
+
+echo '<pre>';
+print_r($cart->getProducts());
+echo '</pre>';
+
+$cart->remove('milk');
+
+echo '<pre>';
+print_r($cart->getProducts());
+echo '</pre>';
+?>
+
+<br>
+<br>
+<!-- Сделайте функцию compare, которая параметром будет принимать два объекта и возвращать true, если они имеют одинаковые свойства и значения являются экземплярами одного и того же класса, и false, если это не так. -->
+<?php
+function compare($a, $b) {
+    if($a==$b) {
+        return 'true';
+    } else {
+        return 'false';
+    }
+}
+$prod1 = new Product2('milk', 5, 200);
+$prod2 = new Product2('milk', 5, 200);
+echo compare($prod1, $prod2);
+?>
+
+<br>
+<br>
+<!-- Сделайте функцию compare, которая параметром будет принимать два объекта и возвращать true, если переданные переменные ссылаются на один и тот же объект, и false, если на разные. -->
+<?php
+function compare2($a, $b) {
+    if($a===$b) {
+        return 'true';
+    } else {
+        return 'false';
+    }
+}
+$prod1 = new Product2('milk', 5, 200);
+$prod2 = $prod1;
+echo compare2($prod1, $prod2);
+?>
+
+<br>
+<br>
+<!-- Сделайте функцию compare, которая параметром будет принимать два объекта и сравнивать их.
+Функция должна возвращать 1, если переданные переменные ссылаются на один и тот же объект.
+Функция должна возвращать 0, если объекты разные, но одного и того же класса и с теми же свойствами и их значениями.
+Функция должна возвращать -1 в противном случае. -->
+<?php
+function compare3($a, $b) {
+    if($a===$b) {
+        return 1;
+    } elseif($a==$b) {
+        return 0;
+    } else {
+        return -1;
+    }
+}
+$prod1 = new Product2('milk', 5, 200);
+$prod2 = new Product2('milk', 5, 300);
+echo compare3($prod1, $prod2);
+?>
+
+<br>
+<br>
+<!-- Скопируйте мой код класса Employee, затем самостоятельно реализуйте описанный класс EmployeesCollection, проверьте его работу. -->
+
+<!-- Упростите ваш класс EmployeesCollection с использованием функции in_array, проверьте его работу. -->
+<?php
+	class Employee16
+	{
+		private $name;
+		private $salary;
+		
+		public function __construct($name, $salary)
+		{
+			$this->name = $name;
+			$this->salary = $salary;
+		}
+		
+		public function getName()
+		{
+			return $this->name;
+		}
+		
+		public function getSalary()
+		{
+			return $this->salary;
+		}
+	}
+?>
+
+<?php
+class EmployeesCollection
+{
+public $employee = [];
+
+public function add($employee) {
+    if(!in_array($employee, $this->employee, true)) {
+        $this->employee[] =  $employee;
+    }
+ 
+}
+// private function exists($newEmployee) {
+//     foreach($this->employee as $elem) {
+//         if($elem===$newEmployee) {
+//             return true;
+//         }
+//     }
+// }
+}
+$employee = new EmployeesCollection;
+$em = new Employee16('Ilya', 1000);
+$employee->add($em);
+$employee->add($em);
+
+var_dump($employee->employee);
+
+?>
+
+<br>
+<br>
+<!-- Сделайте класс Employee с публичными свойствами name (имя) и salary (зарплата). -->
+<?php
+class Employee17 
+{
+    public $name;
+    public $salary;
+
+    public function __construct($name, $salary) {
+        $this->name = $name;
+        $this->salary = $salary;
+    }
+}
+?>
+<!-- Сделайте класс Student с публичными свойствами name (имя) и scholarship (стипендия). -->
+<?php
+class Student17 
+{
+    public $name;
+    public $scholarship;
+
+    public function __construct($name, $scholarship) {
+        $this->name = $name;
+        $this->scholarship = $scholarship;
+    }
+}
+?>
+<!-- Создайте по 3 объекта каждого класса и в произвольном порядке запишите их в массив $arr. -->
+<?php
+$arr = [new Employee17('John', 1000), new Employee17('Ilya', 2000), new Employee17('Smitt', 3000), new Student17('Andry', 200), new Student17('Rick', 220), new Student17('Ron', 250)];
+
+// Переберите циклом массив $arr и выведите на экран столбец имен всех работников.
+foreach($arr as $elem) {
+    if($elem instanceof Employee17) {
+        echo $elem->name . '<br>';
+    }
+}
+echo '<br>';
+// Аналогичным образом выведите на экран столбец имен всех студентов.
+foreach($arr as $elem) {
+    if($elem instanceof Student17) {
+        echo $elem->name . '<br>';
+    }
+}
+
+// Переберите циклом массив $arr и с его помощью найдите сумму зарплат работников и сумму стипендий студентов. После цикла выведите эти два числа на экран.
+$sumEmployeeSalary = 0;
+$sumStudentsScholarship = 0;
+foreach($arr as $elem) {
+
+    if($elem instanceof Employee17) {
+         $sumEmployeeSalary += $elem->salary;
+    }
+    if($elem instanceof Student17) {
+        $sumStudentsScholarship += $elem->scholarship ;
+   }
+}
+echo 'З\П работников: ' . $sumEmployeeSalary . '<br>';
+echo 'Степендия студентов: ' . $sumStudentsScholarship . '<br>';
+?>
+
+<br>
+<br>
+<!-- Сделайте класс User с публичным свойствами name и surname. -->
+<?php
+class User17 
+{
+    public $name;
+    public $surname;
+
+    public function __construct($name, $surname) {
+        $this->name = $name;
+        $this->surname = $surname;
+    }
+}
+// Сделайте класс Employee, который будет наследовать от класса User и добавлять свойство salary.
+class Employee18 extends User17 
+{
+    // public $name;
+    // public $surname;
+
+    // public function __construct($name, $surname) {
+    //     $this->name = $name;
+    //     $this->surname = $surname;
+    // }
+}
+
+// Сделайте класс City с публичными свойствами name и population.
+class City17 
+{
+    public $name;
+    public $population;
+
+    public function __construct($name, $population) {
+        $this->name = $name;
+        $this->population = $population;
+    }
+}
+
+// Создайте 3 объекта класса User, 3 объекта класса Employee, 3 объекта класса City, и в произвольном порядке запишите их в массив $arr.
+$arr = [new User17('John', 'Jonson'), new User17('Ivan', 'Ivanov'), new User17('Tim', 'Thompson'), new Employee18('Andry', 'Andreev'), new Employee18('Rick', 'Ricman'), new Employee18('Ron', 'Wisli'),  new City17('Moscow', 15000000),  new City17('Berlin', 5000000),  new City17('London', 20000000)];
+
+// Переберите циклом массив $arr и выведите на экран столбец свойств name тех объектов, которые принадлежат классу User или потомку этого класса.
+foreach($arr as $elem) {
+    if($elem instanceof User17) {
+        echo $elem->name . "<br>";
+    }
+}
+echo "<br>";
+// Переберите циклом массив $arr и выведите на экран столбец свойств name тех объектов, которые не принадлежат классу User или потомку этого класса.
+foreach($arr as $elem) {
+    if(!$elem instanceof User17) {
+        echo $elem->name . "<br>";
+    }
+}
+echo '<br>';
+// Переберите циклом массив $arr и выведите на экран столбец свойств name тех объектов, которые принадлежат именно классу User, то есть не классу City и не классу Employee.
+foreach($arr as $elem) {
+    if($elem instanceof User17 and !$elem instanceof Employee18) {
+        echo $elem->name . "<br>";
+    }
+}
+?>
+
+<br>
+<br>
+<!-- Скопируйте мой код классов Employee и Student и самостоятельно не подсматривая в мой код реализуйте такой же класс UsersCollection. -->
+<?php
+	class Employee19
+	{
+		private $name;
+		private $salary;
+		
+		public function __construct($name, $salary)
+		{
+			$this->name = $name;
+			$this->salary = $salary;
+		}
+		
+		public function getName()
+		{
+			return $this->name;
+		}
+		
+		public function getSalary()
+		{
+			return $this->salary;
+		}
+	}
+?>
+
+<?php
+	class Student19
+	{
+		private $name;
+		private $scholarship; // стипендия
+		
+		public function __construct($name, $scholarship)
+		{
+			$this->name = $name;
+			$this->scholarship = $scholarship;
+		}
+		
+		public function getName()
+		{
+			return $this->name;
+		}
+		
+		public function getScholarship()
+		{
+			return $this->scholarship;
+		}
+	}
+?>
+
+<?php
+class UsersCollection
+{
+    private $employee = [];
+    private $students = [];
+
+    public function add($user) {
+        if($user instanceof Employee19) {
+            $this->employee[] = $user;
+        }
+        if($user instanceof Student19) {
+            $this->students[] = $user;
+        }
+    }
+    
+
+    public function sumEmployee() {
+        $sum = 0;
+        foreach($this->employee as $elem) {
+            $sum += $elem->getSalary();
+        }
+        return $sum;
+    }
+    public function sumStudents() {
+        $sum = 0;
+        foreach($this->students as $elem) {
+            $sum += $elem->getScholarship();
+        }
+        return $sum;
+    }
+
+    public function sumEmployeeStudents() {
+      return $this->sumEmployee() + $this->sumStudents();
+    }
+}
+$usersCollection = new UsersCollection;
+$usersCollection->add(new Employee19('John', 1000));
+$usersCollection->add(new Employee19('Leo', 2000));
+
+$usersCollection->add(new Student19('Pink', 100));
+$usersCollection->add(new Student19('Rock', 200));
+
+echo $usersCollection->sumEmployee() . '<br>';
+echo $usersCollection->sumStudents() . '<br>';
+echo $usersCollection->sumEmployeeStudents() . '<br>';
+
+?>
