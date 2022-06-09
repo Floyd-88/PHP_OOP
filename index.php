@@ -1776,5 +1776,577 @@ $usersCollection->add(new Student19('Rock', 200));
 echo $usersCollection->sumEmployee() . '<br>';
 echo $usersCollection->sumStudents() . '<br>';
 echo $usersCollection->sumEmployeeStudents() . '<br>';
+?>
 
+<br>
+<br>
+<!-- Сделайте класс Post (должность), в котором будут следующие свойства, доступные только для чтения: name и salary. -->
+<?php
+class Post
+{
+    private $name;
+    private $salary;
+
+    public function __construct($name, $salary) {
+        $this->name = $name;
+        $this->salary = $salary;
+    }
+    public function getName() {
+        return $this->name;
+    }
+    public function getSalary() {
+        return $this->salary;
+    }
+}
+// Создайте несколько объектов класса Post: программист, менеджер водитель
+$user1 = new Post('Программист', 5000);
+$user2 = new Post('Менеджер', 2000);
+$user3 = new Post('Водитель', 1000);
+
+// Сделайте класс Employee, в котором будут следующие свойства: name и surname. Пусть начальные значения этих свойств будут передаваться параметром в конструктор.
+
+// Сделайте геттеры и сеттеры для свойств name и surname.
+
+// Пусть теперь третьим параметром конструктора будет передаваться должность работника, представляющая собой объект класса Post. Укажите тип этого параметра в явном виде.
+
+// Сделайте так, чтобы должность работника (то есть переданный объект с должностью) записывалась в свойство post.
+
+// Реализуйте в классе Employee метод changePost, который будет изменять должность работника на другую. Метод должен принимать параметром объект класса Post. Укажите в методе тип принимаемого параметра в явном виде.
+class Employee20
+{
+    private $name;
+    private $surname;
+    private $post;
+
+    public function __construct($name, $surname, Post $post) {
+        $this->name = $name;
+        $this->surname = $surname;
+        $this->post = $post;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+    public function getSurname() {
+        return $this->surname;
+    }
+    public function getPost() {
+        return $this->post;
+    }
+    public function setName(Post $name) {
+        return $this->name = $name;
+    }
+    public function setSurname($surname) {
+        return $this->surname;
+    }
+    public function changePost(Post $post) {
+        return $this->post = $post;
+    }
+}
+
+// Создайте объект класса Employee с должностью программист. При его создании используйте один из объектов класса Post, созданный нами ранее.
+$employee = new Employee20('Ron', "Wizly", $user1);
+
+// Выведите на экран имя, фамилию, должность и зарплату созданного работника.
+echo $employee->getName() . ' ' . $employee->getSurname() . ' ' .  $employee->getPost()->getName() . ' ' .  $employee->getPost()->getSalary() . '<br>';
+$employee->changePost($user2);
+echo $employee->getPost()->getName();
+?>
+
+<br>
+<br>
+<!-- Пусть у нас дан вот такой класс ArraySumHelper, который мы рассматривали в одном из предыдущих уроков: -->
+<!-- Переделайте методы класса ArraySumHelper на статические. -->
+
+<?php
+	class ArraySumHelper2
+	{
+		public static function getSum1($arr)
+		{
+			return self::getSum($arr, 1);
+		}
+		
+		public static function getSum2($arr)
+		{
+			return self::getSum($arr, 2);
+		}
+		
+		public static function getSum3($arr)
+		{
+			return self::getSum($arr, 3);
+		}
+		
+		public static function getSum4($arr)
+		{
+			return self::getSum($arr, 4);
+		}
+		
+		private static function getSum($arr, $power) {
+			$sum = 0;
+			
+			foreach ($arr as $elem) {
+				$sum += pow($elem, $power);
+			}
+			return $sum;
+		}
+	}
+
+    echo ArraySumHelper2::getSum1([1, 2, 3]) . '<br>';
+    echo ArraySumHelper2::getSum2([1, 2, 3]) . '<br>';
+
+    // Пусть дан массив с числами. Найдите с помощью класса ArraySumHelper сумму квадратов элементов этого массива.
+    $array = [1, 2, 3 , 4];
+    echo ArraySumHelper2::getSum2($array) . '<br>';
+?>
+
+<br>
+<br>
+<!-- Сделайте класс Num, у которого будут два публичных статических свойства: num1 и num2. Запишите в первое свойство число 2, а во второе - число 3. Выведите сумму значений свойств на экран. -->
+<?php
+class Num
+{
+public static $num1;
+public static $num2;
+}
+Num::$num1 = 2;
+Num::$num2 = 3;
+
+echo Num::$num1 + Num::$num2;
+?>
+
+<br>
+<br>
+<!-- Сделайте класс Num, у которого будут два приватны статических свойства: num1 и num2. Пусть по умолчанию в свойстве num1 хранится число 2, а в свойстве num2 - число 3. -->
+
+<!-- Сделайте в классе Num метод getSum, который будет выводить на экран сумму значений свойств num1 и num2. -->
+<?php
+class Num2
+{
+public static $num1 = 2;
+public static $num2 = 3;
+
+public static function getSum() {
+    return self::$num1 + self::$num2;
+    }
+}
+echo Num2::getSum();
+?>
+
+<br>
+<br>
+<!-- Добавьте в наш класс Geometry метод, который будет находить объем шара по радиусу. С помощью этого метода выведите на экран объем шара с радиусом 10. -->
+<?php
+	class Geometry
+	{
+		private static $pi = 3.14; // вынесем Пи в свойство
+		
+		public static function getCircleSquare($radius)
+		{
+			return self::$pi * $radius * $radius;
+		}
+		
+		public static function getCircleСircuit($radius)
+		{
+			return 2 * self::$pi * $radius;
+		}
+        public static function getBallVolume($radius) {
+            return (4 * self::$pi * ($radius * $radius * $radius)) / 3;
+        }
+	}
+    echo Geometry::getBallVolume(10);
+?>
+
+<br>
+<br>
+<!-- Не подсматривая в мой код реализуйте такой же класс User, подсчитывающий количество своих объектов. -->
+
+<!-- Самостоятельно переделайте код вашего класса User в соответствии с теоретической частью урока. -->
+<?php
+class User21
+{
+    private $name;
+    private static $count = 0;
+
+    public function __construct($name) {
+        $this->name = $name;
+        self::$count++;
+    }
+
+    public static function getCount() {
+        return self::$count;
+    }
+}
+
+$user1 = new User21('Ilya');
+echo User21::getCount() . '<br>';
+
+$user2 = new User21('Jhon');
+echo User21::getCount() . '<br>';
+?>
+
+
+<br>
+<br>
+<!-- Реализуйте предложенный класс Circle самостоятельно. -->
+<?php
+class Circle
+{
+    const PI = 3.14;
+    private $radius;
+
+    public function __construct($radius) {
+        $this->radius = $radius;
+    }
+
+    public static function setRadius($radius) {
+        $this->radius = $radius;
+    }
+
+    public function getSquare()
+    {
+        return self::PI * $this->radius * $this->radius;
+    }
+    
+    // Найдем длину окружности:
+    public function getCircuit()
+    {
+        return 2 * self::PI * $this->radius;
+    }
+}
+
+$circle1 = new Circle(10);
+echo $circle1->getSquare() . '<br>';
+echo $circle1->getCircuit() . '<br>';
+?>
+
+
+<br>
+<br>
+<!-- Сделайте объект какого-нибудь класса. Примените к объекту функцию get_class и узнайте имя класса, которому принадлежит объект. -->
+<?php
+class User22
+{
+    private $name;
+    private $age;
+
+    public function __construct($name, $age) {
+        $this->name = $name;
+        $this->age = $age;
+    }
+}
+
+$user1 = new User22('Ilya', 33);
+echo get_class($user1);
+?>
+<br>
+<!-- Сделайте два класса: Test1 и Test2. Пусть оба класса имеют свойство name. Создайте некоторое количество объектов этих классов и запишите в массив $arr в произвольном порядке. Переберите этот массив циклом и для каждого объекта выведите значение его свойства name и имя класса, которому принадлежит объект. -->
+<?php
+class Test_1
+{
+    private $name;
+
+    public function __construct($name){
+        $this->name = $name;
+    }
+    public function getName(){
+       return $this->name;
+    }
+}
+
+class Test_2
+{
+    private $name;
+
+    public function __construct($name){
+        $this->name = $name;
+    }
+    public function getName(){
+       return $this->name;
+    }
+}
+$test1 = new Test_1('Ilya');
+$test2 = new Test_1('Jhon');
+$test3 = new Test_1('Tim');
+
+$test4 = new Test_2('Tran');
+$test5 = new Test_2('Kit');
+$test6 = new Test_2('Leo');
+
+$arr = [$test1, $test2, $test3, $test4, $test5, $test6];
+foreach($arr as $elem) {
+    echo get_class($elem) . ' - ' . $elem->getName() . '<br>';
+}
+?>
+
+<br>
+<br>
+<!-- Сделайте класс Test с методами method1, method2 и method3. С помощью функции get_class_methods получите массив названий методов класса Test. -->
+<?php
+class Test_3
+{
+    private $num = 2;
+
+    public function method1(){
+       return pow($this->num, 2);
+    }
+    public function method2(){
+        return pow($this->num, 3);
+     }
+     public function method3(){
+        return pow($this->num, 4);
+     }
+}
+var_dump(get_class_methods(Test_3));
+echo '<br>';
+// Создайте объект класса Test, запишите его в переменную $test. С помощью функции get_class_methods получите массив названий методов объекта. Переберите его циклом и в цикле вызовите каждый метод класса, используя объект $test. 
+$test = new Test_3;
+$arr = get_class_methods($test);
+foreach($arr as $elem) {
+    echo $test->$elem() . '<br>';
+}
+?>
+
+
+<br>
+<br>
+<!-- Сделайте класс Test с публичными свойствами prop1 и prop2, а также с приватными свойствами prop3 и prop4. -->
+
+<!-- Вызовите функцию get_class_vars внутри класса Test (например, в конструкторе). Выведите массив доступных свойств. -->
+<?php
+class Test_4
+{
+    public $prop_1;
+    public $prop_2;
+    private $prop_3;
+    private $prop_4;
+
+    public function __construct() {
+       $arr = get_class_vars(Test_4);
+       return $arr;
+    }
+}
+// Вызовите функцию get_class_vars снаружи класса Test. Выведите массив доступных свойств.
+$arr = get_class_vars(Test_4);
+foreach($arr as $key => $elem) {
+    echo $key . '<br>';
+}
+$arr2 = new Test_4;
+echo '<pre>';
+print_r($arr2);
+echo '</pre>';
+?>
+
+<!-- Сделайте класс Test с публичными свойствами prop1 и prop2, а также с приватными свойствами prop3 и prop4. Создайте объект этого класса. С помощью функции get_object_vars получите массив свойств созданного объекта. -->
+
+<?php
+class Test_5
+{
+    public $prop_1;
+    public $prop_2;
+    private $prop_3;
+    private $prop_4 = 1;
+
+    public function __construct() {
+       $arr = get_object_vars($this);
+       return $arr;
+    }
+}
+
+$test = new Test_5;
+$arr = get_object_vars($test);
+echo '<pre>';
+print_r($arr);
+echo '</pre>';
+
+echo '<pre>';
+print_r($test);
+echo '</pre>';
+?>
+
+<!-- Пусть у вас есть класс Test1 и нет класса Test2. Проверьте, что выведет функция class_exists для класса Test1 и для класса Test2. -->
+
+<?php
+class Test_6
+{
+
+}
+
+echo class_exists(Test_6) . '<br>';
+var_dump(class_exists(Test_7));
+?>
+
+<br>
+<br>
+<!-- Пусть GET параметром в адресную строку передается название класса. Проверьте, существует ли такой класс. Выведите соответствующее сообщение на экран. -->
+<a href="/?id=Test_6">oop</a>
+<a href="/?id=Test_7">oop</a>
+<?php
+var_dump(class_exists($_GET[id]));
+?>
+
+
+<br>
+<br>
+<!-- Сделайте класс Test с методом method1 и без метода method2. Проверьте, что выведет функция method_exists для метода method1 и для метода method2. -->
+<?php
+class Test_7
+{
+    private $num = 2;
+
+    public function method1(){
+       return pow($this->num, 2);
+    }
+    // public function method2(){
+    //     return pow($this->num, 3);
+    //  }
+    //  public function method3(){
+    //     return pow($this->num, 4);
+    //  }
+}
+var_dump(method_exists(Test_7, method1));
+var_dump(method_exists(Test_7, method2));
+?>
+<br>
+<br>
+<!-- Пусть GET параметрами в адресную строку передаются название класса и его метод. Проверьте, существует ли такой класс. Если существует - проверьте существование переданного метода. Если и метод существует - создайте объект данного класса, вызовите указанный метод и выведите результат его работы на экран. -->
+<a href="?class=Test_7&method=method2">проверка метода на существование</a>
+<?php
+if(class_exists($_GET['class'])){
+    if(method_exists($_GET['class'], $_GET['method'])) {
+        $test = new Test_7;
+       echo  $test->method1();
+    }
+}
+?>
+
+<br>
+<br>
+<!-- Сделайте класс Test со свойством prop1 и без свойства prop2. Проверьте, что выведет функция property_exists для свойства prop1 и для свойства prop2. -->
+<?php
+class Test_8
+{
+    public $prop_1;
+
+
+    public function __construct() {
+       $arr = get_object_vars($this);
+       return $arr;
+    }
+}
+var_dump(property_exists(Test_8, prop_1));
+var_dump(property_exists(Test_8, prop_2));
+?>
+
+<br>
+<br>
+<!-- Дан массив со свойствами класса. Дан также класс, имеющий часть из этих свойств. Переберите этот массив циклом, для каждого свойства проверьте, существует ли оно в классе и, если существует, выведите на экран значение этого свойства. -->
+<?php
+$array = ['prop1', 'prop2', 'prop3', 'prop4', 'prop5', 'prop6'];
+
+class Test_9
+{
+    public $prop1 = 'test1';
+    public $prop4 = 'test2';
+    public $prop6 = 'test3';
+
+
+    public function __construct() {
+       $arr = get_object_vars($this);
+       return $arr;
+    }
+}
+$test = new Test_9;
+foreach($array as $elem) {
+    if(property_exists(Test_9, $elem)) {
+        echo $test->$elem . '<br>';
+    }
+}
+?>
+
+<br>
+<br>
+<!-- Сделайте класс ChildClass наследующий от ParentClass. С помощью функции get_parent_class выведите на экран родителя класса ParentClass. -->
+<?php
+class ParentClass
+{
+
+}
+
+class ChildClass extends ParentClass {
+
+}
+$child = new ChildClass;
+echo get_parent_class($child);
+?>
+
+<br>
+<br>
+<!-- Сделайте класс ChildClass наследующий от ParentClass, который в свою очередь наследует от GrandParentClass -->
+<?php
+class GrandParentClass
+{
+
+}
+
+class ParentClass2 extends GrandParentClass
+{
+
+}
+
+class ChildClass2 extends ParentClass2
+{
+
+}
+// С помощью функции is_subclass_of проверьте, является ли класс ChildClass потомком GrandParentClass.
+if(is_subclass_of(ChildClass2, GrandParentClass)){
+    echo 'yes';
+}else {
+    echo 'no';
+}
+echo '<br>';
+// С помощью функции is_subclass_of проверьте, является ли класс ParentClass потомком GrandParentClass.
+if(is_subclass_of(ParentClass2, GrandParentClass)){
+    echo 'yes';
+}else {
+    echo 'no';
+}
+echo '<br>';
+// С помощью функции is_subclass_of проверьте, является ли класс ChildClass потомком ParentClass.
+if(is_subclass_of(ChildClass2, ParentClass2)) {
+    echo 'yes';
+}else {
+    echo 'no';
+}
+?>
+
+<br>
+<br>
+<!-- делайте класс ChildClass наследующий от ParentClass. Создайте объект класса ChildClass, запишите его в переменную $obj. -->
+<?php
+class ParentClass3 
+{
+
+}
+
+class ChildClass3 extends ParentClass3
+{
+
+}
+$obj = new ChildClass3;
+
+// С помощью функции is_a проверьте, принадлежит ли объект $obj классу ChildClass.
+var_dump(is_a($obj, ChildClass3));
+
+// С помощью функции is_a проверьте, принадлежит ли объект $obj классу ParentClass.
+var_dump(is_a($obj, ParentClass3));
+var_dump($obj instanceof ParentClass);
+?>
+
+<br>
+<br>
+<!-- Выведите на экран список всех объявленных классов. -->
+<?php
+echo '<pre>';
+print_r(get_declared_classes());
+echo '</pre>'
 ?>
