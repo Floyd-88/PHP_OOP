@@ -2350,3 +2350,123 @@ echo '<pre>';
 print_r(get_declared_classes());
 echo '</pre>'
 ?>
+
+<br>
+<br>
+<!-- Самостоятельно, не подсматривая в мой код, реализуйте такой же абстрактный класс User, а также классы Employee и Student, наследующие от него. -->
+
+<!-- Добавьте в ваш класс User такой же абстрактный метод increaseRevenue. Напишите реализацию этого метода в классах Employee и Student. -->
+
+<!-- Добавьте также в ваш класс User абстрактный метод decreaseRevenue (уменьшить зарплату). Напишите реализацию этого метода в классах Employee и Student. -->
+<?php
+abstract class User23
+{
+    private $name;
+
+    public function getName() {
+        return $this->name;
+    }
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    abstract protected function increaseRevenue($value);
+
+    abstract protected function decreaseRevenue($value);
+}
+class Employee23 extends User23
+{
+    private $salary;
+    public function getSalary() {
+        return $this->salary;
+    }
+    public function setSalary($salary) {
+        $this->salary = $salary;
+    }
+
+    public function increaseRevenue($value) {
+        $this->salary += $value;
+    }
+    public function decreaseRevenue($value) {
+        $this->salary -= $value;
+    }
+}
+class Students23 extends User23
+{
+    private $scholarship;
+    public function getScholarship() {
+        return $this->scholarship;
+    }
+    public function setScholarship($scholarship) {
+        $this->scholarship = $scholarship;
+    }
+
+    public function increaseRevenue($value) {
+        $this->scholarship += $value;
+    }
+    public function decreaseRevenue($value) {
+        $this->scholarship -= $value;
+    }
+}
+
+$user = new Students23;
+$user->setName('Ilya');
+$user->setScholarship(202);
+
+echo $user->getName('Ilya') . '<br>';
+echo $user->getScholarship(). '<br>';
+
+echo $user->increaseRevenue(150). '<br>';
+echo $user->getScholarship(). '<br>';
+
+echo $user->decreaseRevenue(100). '<br>';
+echo $user->getScholarship(). '<br>';
+?>
+
+<br>
+<br>
+<!-- Сделайте аналогичный класс Rectangle (прямоугольник), у которого будет два приватных свойства: $a для ширины и $b для длины. Данный класс также должен наследовать от класса Figure и реализовывать его методы. -->
+
+<!-- Добавьте в класс Figure метод getSquarePerimeterSum, который будет находить сумму площади и периметра. -->
+<?php
+abstract class Figure
+{
+    abstract protected function getSquare();
+    abstract protected function getPerimeter();
+
+    public function getSquarePerimeterSum() {
+        return $this->getSquare() + $this->getPerimeter();
+    }
+}
+class Rectangle2 extends Figure
+{
+    private $a;
+    private $b;
+
+    public function getA() {
+        return $this->a;
+    }
+    public function getB() {
+        return $this->b;
+    }
+
+    public function __construct($a, $b) {
+        $this->a = $a;
+        $this->b = $b;
+    }
+    public function getSquare() {
+    return $this->a * $this->b;
+}
+    public function getPerimeter() {
+    return 2* ($this->a + $this->b);
+}
+}
+$rectangle = new Rectangle2(2, 4);
+$rectangle->getA();
+$rectangle->getB();
+
+echo $rectangle->getSquare() . '<br>';
+echo $rectangle->getPerimeter() . '<br>';
+echo $rectangle->getSquarePerimeterSum() . '<br>';
+
+?>
