@@ -69,8 +69,10 @@ class Tag implements iTag
 
     //Геттер свойства конкретного атребута по имени:
     public function getAttr($name) {
-        if(in_array($name, $this->arr)){
+        if(isset($this->arr[$name])){
             return $this->arr[$name];
+        } else {
+            return null;
         }        
     }
 
@@ -164,82 +166,85 @@ class Tag implements iTag
             return "";
         }
     }
+    public function __toString() {
+        return $this->show();
+     }
 }
 
 
 
-$header = new Tag('header');
-echo $header->setText('Header сайта')->show() . '<br>';
+// $header = new Tag('header');
+// echo $header->setText('Header сайта')->show() . '<br>';
 
-$h1 = new Tag('h1');
-echo $h1->setText('Hello')->show() . '<br>';
+// $h1 = new Tag('h1');
+// echo $h1->setText('Hello')->show() . '<br>';
 
-$img = new Tag('img');
-echo $img->setAttr('src', 'https://get.wallhere.com/photo/landscape-sea-reflection-bridge-suspension-bridge-1680x1050-px-nonbuilding-structure-cable-stayed-bridge-truss-bridge-706446.jpg')->setAttr('alt', 'picture')->setAttr('height', '100px')->open();
-echo $img->removeAttr('height')->setAttr('height', '200px')->removeAttr('alt')->open();
-$img1 = new Tag('img');
-$img1->setAttr('src', 'https://get.wallhere.com/photo/landscape-sea-reflection-bridge-suspension-bridge-1680x1050-px-nonbuilding-structure-cable-stayed-bridge-truss-bridge-706446.jpg');
-echo $img1->setAttrs(['height' =>'300px', 'alt' => 'img'])->open();
-echo '<br>';
-$input = new Tag('input');
-echo $input->setAttr('type', 'password')->setAttr('value', '1234567')->setAttr('disabled', true)->open();
+// $img = new Tag('img');
+// echo $img->setAttr('src', 'https://get.wallhere.com/photo/landscape-sea-reflection-bridge-suspension-bridge-1680x1050-px-nonbuilding-structure-cable-stayed-bridge-truss-bridge-706446.jpg')->setAttr('alt', 'picture')->setAttr('height', '100px')->open();
+// echo $img->removeAttr('height')->setAttr('height', '200px')->removeAttr('alt')->open();
+// $img1 = new Tag('img');
+// $img1->setAttr('src', 'https://get.wallhere.com/photo/landscape-sea-reflection-bridge-suspension-bridge-1680x1050-px-nonbuilding-structure-cable-stayed-bridge-truss-bridge-706446.jpg');
+// echo $img1->setAttrs(['height' =>'300px', 'alt' => 'img'])->open();
+// echo '<br>';
+// $input = new Tag('input');
+// echo $input->setAttr('type', 'password')->setAttr('value', '1234567')->setAttr('disabled', true)->open();
 ?>
-<br>
-<br>
+<!-- <br>
+<br> -->
 <?php
-echo (new Tag('input'))->setAttr('name', 'name1')->open();
+// echo (new Tag('input'))->setAttr('name', 'name1')->open();
 ?>
-<br>
-<br>
+<!-- <br>
+<br> -->
 <?php
-echo (new Tag('input'))->setAttr('name', 'name2')->open(); 
+// echo (new Tag('input'))->setAttr('name', 'name2')->open(); 
 ?>
-<br>
-<br>
+<!-- <br>
+<br> -->
 
 <?php
 	// Выведет <input class="eee">:
-	echo (new Tag('input'))->addClass('eee')->open();
+	// echo (new Tag('input'))->addClass('eee')->open();
 ?>
 <?php
 	// Выведет <input class="eee bbb">:
-	echo (new Tag('input'))->addClass('eee')->addClass('bbb')->open();
+	// echo (new Tag('input'))->addClass('eee')->addClass('bbb')->open();
 ?>
 <?php
 	// Выведет <input class="eee bbb kkk">:
-	echo (new Tag('input'))
-		->setAttr('class', 'eee bbb')
-		->addClass('kkk')->open();
+	// echo (new Tag('input'))
+	// 	->setAttr('class', 'eee bbb')
+	// 	->addClass('kkk')->open();
 ?>
 <?php
 	// Выведет <input class="eee bbb">:
-	echo (new Tag('input'))
-		->setAttr('class', 'eee bbb')
-		->addClass('eee') // такой класс уже есть и не добавится
-		->open();
+	// echo (new Tag('input'))
+	// 	->setAttr('class', 'eee bbb')
+	// 	->addClass('eee') // такой класс уже есть и не добавится
+	// 	->open();
 ?>
 <?php
 	// Выведет <input class="eee bbb">:
-	echo (new Tag('input'))
-		->addClass('eee')
-		->addClass('bbb')
-		->addClass('eee') // такой класс уже есть и не добавится
-		->open();
+	// echo (new Tag('input'))
+	// 	->addClass('eee')
+	// 	->addClass('bbb')
+	// 	->addClass('eee') // такой класс уже есть и не добавится
+	// 	->open();
 ?>
 
-<br>
-<br>
+<!-- <br>
+<br> -->
 <?php
-	echo (new Tag('input'))
-		->setAttr('class', 'eee zzz kkk') // добавим 3 класса
-		->removeClass('kkk') // удалим класс 'zzz'
-		->open(); // выведет <input class="eee kkk">
+	// echo (new Tag('input'))
+	// 	->setAttr('class', 'eee zzz kkk') // добавим 3 класса
+	// 	->removeClass('kkk') // удалим класс 'zzz'
+	// 	->open(); // выведет <input class="eee kkk">
 ?>
-<br>
+<!-- <br> -->
 <?php
-echo $header->getName() . '<br>';
-echo $header->getText() . '<br>';
-var_dump($input->getAttrs());
-echo '<br>';
-var_dump($input->getAttr('uuu'));
+// echo $header->getName() . '<br>';
+// echo $header->getText() . '<br>';
+// var_dump($input->getAttrs());
+// echo '<br>';
+// var_dump($input->getAttr('uuu'));
 ?>

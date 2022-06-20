@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: antiquewhite;
+    padding: 20px;
+}
+
+.menu {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+.active {
+    color:aqua;
+    font-size: 23px;
+    text-decoration: underline;
+}
