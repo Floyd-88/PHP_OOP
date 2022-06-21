@@ -12,21 +12,21 @@ class Submit extends Input
 ?>
 
 <?php
-$form3 = (new Form())->setAttrs(['action'=>'', 'method'=>'GET']);
-echo $form3->open();
+// $form3 = (new Form())->setAttrs(['action'=>'', 'method'=>'GET']);
+// echo $form3->open();
 
-echo (new Tag('div'))->setText('Имя');
-echo (new Input())->setAttr('name', 'name');
+// echo (new Tag('div'))->setText('Имя');
+// echo (new Input())->setAttr('name', 'name');
 
-echo (new Tag('div'))->setText('Зарплата');
-echo (new Input())->setAttr('name', 'salary');
+// echo (new Tag('div'))->setText('Зарплата');
+// echo (new Input())->setAttr('name', 'salary');
 
-echo (new Tag('div'))->setText('Дней');
-echo (new Input())->setAttr('name', 'days') . '<br>';
+// echo (new Tag('div'))->setText('Дней');
+// echo (new Input())->setAttr('name', 'days') . '<br>';
 
-echo new Submit;
+// echo new Submit;
 
-echo (new Tag('div'))->setText((new Input())->sumNum());
+// echo (new Tag('div'))->setText((new Input())->sumNum());
 
-echo $form3->close();
+// echo $form3->close();
 ?>
