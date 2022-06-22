@@ -7,7 +7,7 @@ class HtmlList extends Tag
     private $items = [];
 
     public function addItem(ListItem $li) {
-        $this->items [] = $li;
+        $this->items [] =  $li;
         return $this;
     }
 
